@@ -51,6 +51,7 @@ The module provisions the following resources
 | gke\_mci\_cluster\_subnet\_name | The name of the subnet for multi-cluster ingress (MCI). | `string` | `"mci-config-subnet"` | no |
 | location\_primary | The primary region for deployment, if not set default locations for each resource are taken from variables file. | `string` | `"us-east1"` | no |
 | location\_secondary | The secondary region for deployment, if not set default locations for each resource are taken from variables file. | `string` | `"us-west1"` | no |
+| max\_pods\_per\_node | The maximum number of pods to schedule per node | `number` | `64` | no |
 | project\_prefix | Name prefix to use for projects created. | `string` | `"prj"` | no |
 | shared\_vpc\_name | The shared VPC network name. | `string` | n/a | yes |
 | sql\_admin\_password | Admin Password for SQL Instances. | `string` | `"admin"` | no |
