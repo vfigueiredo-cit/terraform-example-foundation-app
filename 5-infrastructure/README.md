@@ -103,11 +103,10 @@ All infrastructure components will be created using the base network created dur
     1. Review the apply output in your cloud build project https://console.cloud.google.com/cloud-build/builds?project=YOUR_CLOUD_BUILD_PROJECT_ID
 1. Merge changes to development with `git checkout -b development` and `git push origin development`.
     1. Review the apply output in your cloud build project https://console.cloud.google.com/cloud-build/builds?project=YOUR_CLOUD_BUILD_PROJECT_ID
-1. Merge changes to non-production with `git checkout -b non-production` and `git push origin non-production`.
-    1. Review the apply output in your cloud build project https://console.cloud.google.com/cloud-build/builds?project=YOUR_CLOUD_BUILD_PROJECT_ID
-1. Merge changes to production branch with `git checkout -b production` and `git push origin production`.
-    1. Review the apply output in your cloud build project https://console.cloud.google.com/cloud-build/builds?project=YOUR_CLOUD_BUILD_PROJECT_ID
 > **NOTE: If Terraform Apply Fails on any branch check Troubleshooting Section below**
+> 
+> **NOTE: Only the env development will be created as it will be the only one needed in the steps 6-anthos-install and 7-app-build-deploy**
+
 
 ### Run terraform locally (Alternate)
 1. Change into `cd business_unit_1/shared` folder.
@@ -118,9 +117,9 @@ All infrastructure components will be created using the base network created dur
 1. Run `terraform plan`
 1. Run `terraform apply` ensure you have the correct permissions before doing this.
 
-### Run cloudbuild dev/npd/prd envs
+### Run cloudbuild dev env
 
-We will now deploy each of our environments(development/production/non-production) using this script.
+We will now deploy each of the environments(development) using this script.
 
 
 ### **Troubleshooting:**
@@ -138,15 +137,7 @@ We will now deploy each of our environments(development/production/non-productio
 
 ### TF Validate (Optional)
 To use the `validate` option of the `tf-wrapper.sh` script, please follow the [instructions](https://github.com/forseti-security/policy-library/blob/master/docs/user_guide.md#install-terraform-validator) in the **Install Terraform Validator** section and install version `2021-03-22` in your system. You will also need to rename the binary from `terraform-validator-<your-platform>` to `terraform-validator` and the `terraform-validator` binary must be in your `PATH`.
-1. Run `./tf-wrapper.sh init production`.
-1. Run `./tf-wrapper.sh plan production` and review output.
-1. Run `./tf-wrapper.sh validate production $(pwd)/../policy-library <YOUR_INFRA_PIPELINE_PROJECT>` and check for violations.
-1. Run `./tf-wrapper.sh apply production`.
-1. Run `./tf-wrapper.sh init non-production`.
-1. Run `./tf-wrapper.sh plan non-production` and review output.
-1. Run `./tf-wrapper.sh plan non-production` and review output.
-1. Run `./tf-wrapper.sh validate non-production $(pwd)/../policy-library <YOUR_INFRA_PIPELINE_PROJECT>` and check for violations.
-1. Run `./tf-wrapper.sh apply non-production`.
+
 1. Run `./tf-wrapper.sh init development`.
 1. Run `./tf-wrapper.sh plan development` and review output.
 1. Run `./tf-wrapper.sh validate development $(pwd)/../policy-library <YOUR_INFRA_PIPELINE_PROJECT>` and check for violations.
