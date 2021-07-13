@@ -482,18 +482,6 @@ Example:
     kubectl create secret generic cloud-sql-admin --context $CTX_2 --namespace=transactions --from-literal connectionName=$SQL_PROJECT_ID:us-east1:$SQL_INSTANCE_NAME_EAST --from-literal=username=admin --from-literal=password=admin
     ```
 
-1. Add IAM binding
-    ```
-    gcloud iam service-accounts add-iam-policy-binding \
-    --role roles/iam.workloadIdentityUser \
-    --member "serviceAccount:$GKE_PROJECT_ID.svc.id.goog[accounts/accounts]" \
-    boa-gsa@$GKE_PROJECT_ID.iam.gserviceaccount.com
-
-    gcloud iam service-accounts add-iam-policy-binding \
-    --role roles/iam.workloadIdentityUser \
-    --member "serviceAccount:$GKE_PROJECT_ID.svc.id.goog[transactions/transactions]" \
-    boa-gsa@$GKE_PROJECT_ID.iam.gserviceaccount.com
-    ```
 
 1. Run script to populate database ledger
     ```
