@@ -116,6 +116,17 @@ resource "google_project_iam_member" "boa_gsa_roles_sql" {
   member   = "serviceAccount:${google_service_account.boa_gsa.email}"
 }
 
+locals {
+  namespaces = ["accounts","transactions"]
+}
+resource "google_service_account_iam_member" "boa_gsa_roles_gke_namespaces" {
+  for_each           = local.namespaces
+  service_account_id = google_service_account.boa_gsa.name
+  role               = "roles/iam.workloadIdentityUser"
+  member             = "serviceAccount:${module.boa_gke_project.project_id}.svc.id.goog[${each.key}/${each.key}]"
+}
+
+
 # Service account to allow Bank of Anthos GKE Node Service Account with minimal permissions to run nodes and access artifact repos in cicd project
 resource "google_service_account" "boa_gke_nodes_gsa" {
   account_id  = "boa-gke-nodes-${var.environment_code}-gsa"
