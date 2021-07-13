@@ -1,20 +1,9 @@
 # Deploying Bank of Anthos
 
-### These instructions need to be run on the bastion host
-
-To access the bastion host:
-
-1. Open the [Google Cloud console](https://console.cloud.google.com).
-1. Navigate to **Compute Engine** in the GKE project `prj-bu1-d-boa-gke`.
-1. Select the `gce-bastion-us-west1-b-01` instance.
-1. Click on `ssh`.
-
-You need to be an allowlisted member to access this node.
-
-This can be achieved either:
-
-* By [Manually](https://cloud.google.com/iap/docs/using-tcp-forwarding#grant-permission) granting the required permissions to your GCP User Identity or
-* By adding your GCP User Identity in the list of `bastion_members` in `5-infrastructure/business_unit_1/development/development.auto.example.tfvars`.
+These instructions need to be run on the bastion host.
+To access the bastion host, open the Google Cloud console, and navigate to Compute Engine in the GKE project `prj-bu1-d-boa-gke`.
+Then, select the `gce-bastion-us-west1-b-01` and click on `ssh`.
+You need to be an allowlisted member to access this node which can be achieved either [manually](https://cloud.google.com/iap/docs/using-tcp-forwarding#grant-permission) or by adding your GCP User Identity in the list of `bastion_members` in `5-infrastructure/business_unit_1/<environment>/<environment>.auto.example.tfvars`.
 
 You can also connect to this instance by tunnelling SSH traffic through IAP.
 
@@ -346,7 +335,7 @@ The changes need to be applied on the following files:
 1. Update the configuration of the external service mesh for database access. Follow the instructions in the files:
 
 - ${HOME}/bank-of-anthos-repos/root-config-repo/namespaces/boa/accounts/mesh-external-svc.yaml
-- ${HOME}/bank-of-anthos-repos/root-config-repo/namespaces/boa/transactions/mesh-external-svc.yaml
+- ${HOME}/bank-of-anthos-repos/root-config-repo/namespaces/boa/frontend/mesh-external-svc.yaml
 
 1. push the content to the root-config-repo
     ```
@@ -509,6 +498,10 @@ Example:
 1. Run script to populate database ledger
     ```
     kubectl apply -n transactions --context ${CTX_1} -f ${HOME}/terraform-example-foundation-app/6-anthos-install/db-scripts/populate-ledger-db.yaml
+    ```
 
-    kubectl apply -n transactions --context ${CTX_2} -f ${HOME}/terraform-example-foundation-app/6-anthos-install/db-scripts/populate-ledger-db.yaml
+1. Run script to populate database accounts
+
+    ```
+    kubectl apply -n accounts --context ${CTX_2} -f ${HOME}/terraform-example-foundation-app/6-anthos-install/db-scripts/populate-accounts-db.yaml
     ```
